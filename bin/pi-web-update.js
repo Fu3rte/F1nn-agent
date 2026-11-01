@@ -7,9 +7,9 @@ const fs = require("fs");
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const path = require("path");
 
-const NPM_LATEST_URL = "https://registry.npmjs.org/@agegr%2Fpi-web/latest";
+const NPM_LATEST_URL = "https://registry.npmjs.org/f1nn-agent/latest";
 const FETCH_TIMEOUT_MS = 10_000;
-const MANUAL_COMMAND = "npm install -g @agegr/pi-web@latest";
+const MANUAL_COMMAND = "npm install -g f1nn-agent@latest";
 
 // Port of lib/app-update.ts (bin cannot import TypeScript).
 function parseStableVersion(version) {
@@ -64,15 +64,14 @@ function realpathOrSelf(target, realpath = fs.realpathSync) {
   }
 }
 
-// "global": pkgDir is <npm root -g>/@agegr/pi-web; "npx": an npx cache; else "other".
+// "global": pkgDir is <npm root -g>/f1nn-agent; "npx": an npx cache; else "other".
 function getInstallKind({ pkgDir, npmRoot, realpath = fs.realpathSync }) {
   const realPkgDir = realpathOrSelf(pkgDir, realpath);
   if (realPkgDir.split(/[\\/]/).includes("_npx")) return "npx";
   if (!npmRoot) return "other";
   const inGlobalRoot =
-    path.basename(realPkgDir) === "pi-web" &&
-    path.basename(path.dirname(realPkgDir)) === "@agegr" &&
-    realpathOrSelf(path.dirname(path.dirname(realPkgDir)), realpath) === realpathOrSelf(npmRoot, realpath);
+    path.basename(realPkgDir) === "f1nn-agent" &&
+    realpathOrSelf(path.dirname(realPkgDir), realpath) === realpathOrSelf(npmRoot, realpath);
   return inGlobalRoot ? "global" : "other";
 }
 
@@ -87,7 +86,7 @@ function getGlobalNpmRoot() {
 }
 
 function runNpmInstall(version) {
-  const invocation = findNpmInvocation(["install", "-g", `@agegr/pi-web@${version}`]);
+  const invocation = findNpmInvocation(["install", "-g", `f1nn-agent@${version}`]);
   if (!invocation) return null;
   const result = spawnSync(invocation.command, invocation.args, { stdio: "inherit" });
   return result.status ?? 1;
@@ -114,26 +113,26 @@ async function runUpdate({
     return 1;
   }
   if (!isNewerStableVersion(latest, currentVersion)) {
-    log(`pi-web ${currentVersion} is up to date.`);
+    log(`F1nn-agent ${currentVersion} is up to date.`);
     return 0;
   }
-  log(`pi-web ${latest} is available (installed: ${currentVersion}).`);
+  log(`F1nn-agent ${latest} is available (installed: ${currentVersion}).`);
   if (check) return 0;
 
   // A running `next start` has .next/ open; never replace it underneath.
   const running = await listRecords();
   if (running.length > 0) {
-    error(`pi-web is running:\n${running.map(formatRecord).join("\n")}\nRun \`pi-web stop\` first, then update.`);
+    error(`F1nn-agent is running:\n${running.map(formatRecord).join("\n")}\nRun \`f1nn-agent stop\` first, then update.`);
     return 1;
   }
 
   const kind = getInstallKind({ pkgDir, npmRoot: getNpmRoot(), realpath });
   if (kind === "npx") {
-    error("This pi-web runs from the npx cache. Run `npx @agegr/pi-web@latest` instead.");
+    error("This F1nn-agent runs from the npx cache. Run `npx f1nn-agent@latest` instead.");
     return 1;
   }
   if (kind !== "global") {
-    error(`This pi-web is not a global npm install. Update it yourself, for example: ${MANUAL_COMMAND}`);
+    error(`This F1nn-agent is not a global npm install. Update it yourself, for example: ${MANUAL_COMMAND}`);
     return 1;
   }
 

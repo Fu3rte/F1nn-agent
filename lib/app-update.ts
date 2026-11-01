@@ -22,7 +22,10 @@ export function isNewerStableVersion(candidate: string, current: string): boolea
   return false;
 }
 
-export function getPiWebReleaseUrl(version: string): string | null {
+/** The repository whose GitHub releases are this build's update source. */
+export const RELEASE_REPO = "Fu3rte/F1nn-agent";
+
+export function getReleaseUrl(version: string): string | null {
   if (!parseStableVersion(version)) return null;
-  return `https://github.com/agegr/pi-web/releases/tag/v${version}`;
+  return `https://github.com/${RELEASE_REPO}/releases/tag/v${version}`;
 }
