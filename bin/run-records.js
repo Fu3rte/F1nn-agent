@@ -1,6 +1,6 @@
 "use strict";
 
-// Records of running pi-web servers: one <agentDir>/pi-web-run/<launcher pid>.json
+// Records of running pi-web servers: one <agentDir>/f1nn-agent-run/<launcher pid>.json
 // per server, written by the launcher once Next.js is ready and removed when it
 // exits. pi-web keeps all its state in pi's agent directory, so this does too.
 
@@ -26,7 +26,7 @@ function getAgentDir(env = process.env, home = os.homedir()) {
 }
 
 function getRunDir(env = process.env, home = os.homedir()) {
-  return path.join(getAgentDir(env, home), "pi-web-run");
+  return path.join(getAgentDir(env, home), "f1nn-agent-run");
 }
 
 // The address a browser on this machine can open: wildcard binds become
