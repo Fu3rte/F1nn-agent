@@ -1,7 +1,7 @@
 {
-  "name": "@agegr/pi-web",
+  "name": "f1nn-agent",
   "version": "0.13.0",
-  "description": "Web UI for the pi coding agent",
+  "description": "Personal agent web UI built on the pi kernel",
   "homepage": "https://github.com/agegr/pi-web#readme",
   "repository": {
     "type": "git",
@@ -22,7 +22,7 @@
     "ios_saf 16.2"
   ],
   "bin": {
-    "pi-web": "bin/pi-web.js"
+    "f1nn-agent": "bin/pi-web.js"
   },
   "files": [
     "bin",

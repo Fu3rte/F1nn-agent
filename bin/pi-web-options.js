@@ -40,13 +40,13 @@ const COMMAND_OPTIONS = {
 };
 
 function getHelpText() {
-  return `Usage: pi-web [command] [options]
+  return `Usage: f1nn-agent [command] [options]
 
-Start the Pi Web UI server, or run one of the commands below.
+Start the F1nn-agent UI server, or run one of the commands below.
 
 Commands:
-  version                    Print the installed Pi Web version (also -v, --version)
-  status                     List running Pi Web servers
+  version                    Print the installed F1nn-agent version (also -v, --version)
+  status                     List running F1nn-agent servers
   stop [--port <port>]       Stop a running server
   open [--port <port>]       Open a running server in the browser
   update [--check]           Update a global npm install to the latest version
@@ -61,10 +61,10 @@ Environment:
   PORT                       Default port when --port is omitted
   PI_WEB_HOSTNAME            Default hostname when --hostname is omitted
   PI_WEB_NO_OPEN             Set to 1/true/yes/on to disable browser open
-  PI_WEB_APP_NAME            PWA manifest name (trimmed; default Pi Web)
+  PI_WEB_APP_NAME            PWA manifest name (trimmed; default F1nn-agent)
   PI_WEB_PASSWORD            Enable browser password login and API Basic Auth
   PI_WEB_ALLOWED_HOSTS       Extra exact proxy/custom hostnames, comma-separated
-  PI_WEB_SKIP_VERSION_CHECK  Set to 1 to disable Pi Web update checks
+  PI_WEB_SKIP_VERSION_CHECK  Set to 1 to disable F1nn-agent update checks
   PI_WEB_IDLE_TIMEOUT_MS     Session idle timeout in ms (0 disables; default 600000)
   PI_WEB_SHUTDOWN_DEADLINE_MS  Shutdown wait for extensions in ms (default 5000)
 `;

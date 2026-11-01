@@ -158,13 +158,13 @@ function selectRunRecord(records, port) {
   const matching = port === undefined ? records : records.filter((record) => String(record.port) === String(port));
   if (matching.length === 1) return { record: matching[0] };
   if (matching.length === 0) {
-    return { error: port === undefined ? "No pi-web server is running." : `No pi-web server is running on port ${port}.` };
+    return { error: port === undefined ? "No f1nn-agent server is running." : `No f1nn-agent server is running on port ${port}.` };
   }
   if (port !== undefined) {
-    return { error: `Several pi-web servers are running on port ${port}:\n${matching.map(formatRunRecord).join("\n")}` };
+    return { error: `Several f1nn-agent servers are running on port ${port}:\n${matching.map(formatRunRecord).join("\n")}` };
   }
   return {
-    error: `Several pi-web servers are running:\n${matching.map(formatRunRecord).join("\n")}\nPass --port <port> to choose one.`,
+    error: `Several f1nn-agent servers are running:\n${matching.map(formatRunRecord).join("\n")}\nPass --port <port> to choose one.`,
   };
 }
 
@@ -187,7 +187,7 @@ function createRunRecordTracker({ dir, record, parentProcess = process, warn = c
         runDir = typeof dir === "function" ? dir() : dir;
         writeRunRecord(runDir, record);
       } catch (error) {
-        warn(`[pi-web] could not write the run record (pi-web status/stop/open will not see this server): ${error.message}`);
+        warn(`[f1nn-agent] could not write the run record (f1nn-agent status/stop/open will not see this server): ${error.message}`);
         return;
       }
       parentProcess.once("exit", () => removeRunRecord(runDir, record.pid));

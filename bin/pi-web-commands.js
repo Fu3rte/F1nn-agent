@@ -47,18 +47,18 @@ async function stopServer(record, {
     else kill(pid, "SIGTERM");
   } catch (killError) {
     if (killError.code !== "ESRCH") {
-      error(`Could not stop pi-web (pid ${pid}): ${killError.message}`);
+      error(`Could not stop f1nn-agent (pid ${pid}): ${killError.message}`);
       return 1;
     }
   }
   for (let waited = 0; isAlive(pid); waited += STOP_POLL_MS) {
     if (waited >= timeoutMs) {
-      error(`pi-web on ${record.url} (pid ${pid}) is still running after ${timeoutMs / 1000} s.`);
+      error(`f1nn-agent on ${record.url} (pid ${pid}) is still running after ${timeoutMs / 1000} s.`);
       return 1;
     }
     await wait(STOP_POLL_MS);
   }
-  log(`Stopped pi-web on ${record.url} (pid ${pid}).`);
+  log(`Stopped f1nn-agent on ${record.url} (pid ${pid}).`);
   return 0;
 }
 
@@ -79,8 +79,8 @@ async function runCommand(options, {
     case "status": {
       const running = await list();
       log(running.length === 0
-        ? "No pi-web server is running."
-        : `Running pi-web servers:\n${running.map(records.formatRunRecord).join("\n")}`);
+        ? "No f1nn-agent server is running."
+        : `Running f1nn-agent servers:\n${running.map(records.formatRunRecord).join("\n")}`);
       return 0;
     }
     case "stop":
